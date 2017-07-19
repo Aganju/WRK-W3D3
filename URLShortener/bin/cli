@@ -1,0 +1,18 @@
+puts "Enter your email, scrublord"
+email = gets.chomp
+user = User.find_by(email: ":email", email: email)
+puts "Type 'visit' if you want to visit a shortened URL."
+puts "Type 'create' if you want to create one."
+input = gets.chomp
+if input == "visit"
+  puts "Type in the shortened URL."
+  shortened = gets.chomp
+  visit = Visit.record_visit(user, ShortenedURL.find_by(short_url: ":shortened", shortened: shortened))
+  puts "Loading your URL..."
+  launchy ShortenedURL.find_by(short_url: ":shortened", shortened: shortened).long_url
+else
+  puts "Type in your long URL."
+  long = gets.chomp
+  shortened = ShortenedURL.generate(user, long)
+  puts "Your shortened URL is #{shortened.short_url}"
+end

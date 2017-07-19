@@ -15,7 +15,8 @@ class Visit < ActiveRecord::Base
     v = self.new
     v.visitor = user
     v.visited_url = shortened_url
+    v.save!
     v
   end
-  
+
 end
